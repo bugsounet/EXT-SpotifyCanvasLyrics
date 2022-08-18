@@ -41,22 +41,6 @@ Module.register("EXT-SpotifyCanvas", {
     logCanvas("Config:", this.config)
   },
 
-  getTranslations: function() {
-    return {
-      /*
-      en: "translations/en.json",
-      fr: "translations/fr.json",
-      it: "translations/it.json",
-      de: "translations/de.json",
-      es: "translations/es.json",
-      nl: "translations/nl.json",
-      pt: "translations/pt.json",
-      ko: "translations/ko.json",
-      el: "translations/el.json"
-      */
-    }
-  },
-
   getDom: function() {
     var canvas = document.createElement("div")
     return canvas
