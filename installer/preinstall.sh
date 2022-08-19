@@ -69,9 +69,9 @@ Installer_update_dependencies
 Installer_success "All Dependencies needed are installed !"
 
 echo
-Installer_info "Cloning spotify-canvas-downloader"
+Installer_info "Installing spotify-canvas-lyrics API"
 rm -rf server
-git clone https://github.com/bugsounet/spotify-canvas-downloader server
+git clone https://github.com/bugsounet/spotify-canvas-lyrics server
 
 echo
 Installer_info "Installing requirements.txt..."

@@ -1,7 +1,7 @@
 "use strict"
 
 var NodeHelper = require("node_helper")
-var logCANVAS = (...args) => { /* do nothing */ }
+var logSCL = (...args) => { /* do nothing */ }
 var {PythonShell} = require('python-shell')
 
 module.exports = NodeHelper.create({
@@ -12,7 +12,7 @@ module.exports = NodeHelper.create({
   socketNotificationReceived: function (noti, payload) {
     switch (noti) {
       case "INIT":
-        console.log("[CANVAS] EXT-SpotifyCanvas Version:", require('./package.json').version, "rev:", require('./package.json').rev)
+        console.log("[SPOTIFYCL] EXT-SpotifyCanvasLyrics Version:", require('./package.json').version, "rev:", require('./package.json').rev)
         this.initialize(payload)
       break
     }
@@ -20,10 +20,10 @@ module.exports = NodeHelper.create({
 
   initialize: function (config) {
     this.config = config
-    if (this.config.debug) logCANVAS = (...args) => { console.log("[CANVAS]", ...args) }
+    if (this.config.debug) logSCL = (...args) => { console.log("[SPOTIFYCL]", ...args) }
     if (!this.config.email || !this.config.password) {
       this.sendSocketNotification("ERROR", "Email or Password not found!")
-      return console.error("[CANVAS] email or password not found!")
+      return console.error("[SPOTIFYCL] email or password not found!")
     }
     let options = {
       mode: 'text',
@@ -39,13 +39,13 @@ module.exports = NodeHelper.create({
     this.canvas = new PythonShell('main.py', options)
 
     this.canvas.on('message', function (message) {
-      logCANVAS(message)
+      logSCL(message)
     })
     this.canvas.on('stderr', function (stderr) {
-      console.log("[CANVAS]", stderr)
+      console.log("[SPOTIFYCL]", stderr)
     })
     this.canvas.on('stdout', function (stdout) {
-      console.log("[CANVAS]", stdout)
+      console.log("[SPOTIFYCL]", stdout)
     })
   }
 })

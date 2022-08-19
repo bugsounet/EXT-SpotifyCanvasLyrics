@@ -1,1 +1,1 @@
-# EXT-SpotifyCanvas
+# EXT-SpotifyCanvasLyrics

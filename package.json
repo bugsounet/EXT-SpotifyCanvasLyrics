@@ -1,9 +1,9 @@
 {
-  "name": "EXT-SpotifyCanvas",
+  "name": "EXT-SpotifyCanvasLyrics",
   "version": "1.0.0",
-  "rev": "220817",
-  "description": "An EXT-Spotify plugin for fetch spotify canvans from spotify trackId.",
-  "main": "EXT-SpotifyCanvas.js",
+  "rev": "220819",
+  "description": "An EXT-Spotify plugin for fetch spotify canvas/lyrics from spotify trackId.",
+  "main": "EXT-SpotifyCanvasLyrics.js",
   "scripts": {
     "preinstall": "installer/preinstall.sh",
     "postinstall": "installer/postinstall.sh",
@@ -12,8 +12,9 @@
   "keywords": [
     "magic mirror",
     "module",
-    "internet",
-    "warning"
+    "spotify",
+    "canvas",
+    "lyrics"
   ],
   "author": "bugsounet",
   "license": "MIT",
@@ -22,9 +23,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bugsounet/EXT-SpotifyCanvas"
+    "url": "https://github.com/bugsounet/EXT-SpotifyCanvasLyrics"
   },
-  "homepage": "https://wiki.bugsounet.fr/en/EXT-SpotifyCanvas",
+  "homepage": "https://wiki.bugsounet.fr/en/EXT-SpotifyCanvasLyrics",
   "dependencies": {
     "python-shell": "^3.0.1"
   }
