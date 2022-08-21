@@ -9,52 +9,82 @@ logSCL = (...args) => { /* do nothing */ }
 
 Module.register("EXT-SpotifyCanvasLyrics", {
   defaults: {
-    debug: false,
-    email: null,
-    password: null
+    debug: false
   },
 
   start: function () {
-    if (this.config.debug) logCanvas = (...args) => { console.log("[SPOTIFYCL]", ...args) }
-    if (!this.config.email || !this.config.password) {
-      /** Search player config **/
-      let Librespot = config.modules.find(m => m.module == "EXT-Librespot")
-      let Raspotify = config.modules.find(m => m.module == "EXT-Raspotify")
-      if ((Librespot && !Librespot.disabled) || (Raspotify && !Raspotify.disabled)) {
-        logSCL("Player Found!")
-        if (Librespot) {
-          try {
-            this.config.email = Librespot.config.email
-          } catch (e) { }
-          try {
-            this.config.password = Librespot.config.password
-          } catch (e) { }
-        }
-        else if (Raspotify) {
-          try {
-            this.config.email = Raspotify.config.email
-          } catch (e) { }
-          try {
-            this.config.password = Raspotify.config.password
-          } catch (e) { }
-        }
+    this.init = false
+    this.helperConfig = {
+      debug: this.config.debug,
+      email: null,
+      password: null
+    }
+    if (this.helperConfig.debug) logSCL = (...args) => { console.log("[SPOTIFYCL]", ...args) }
+
+    /** Search player config **/
+    let Librespot = config.modules.find(m => m.module == "EXT-Librespot")
+    let Raspotify = config.modules.find(m => m.module == "EXT-Raspotify")
+    if ((Librespot && !Librespot.disabled) || (Raspotify && !Raspotify.disabled)) {
+      logSCL("Player Found!")
+      if (Librespot) {
+        try {
+          this.helperConfig.email = Librespot.config.email
+        } catch (e) { }
+        try {
+          this.helperConfig.password = Librespot.config.password
+        } catch (e) { }
+      }
+      else if (Raspotify) {
+        try {
+          this.helperConfig.email = Raspotify.config.email
+        } catch (e) { }
+        try {
+          this.helperConfig.password = Raspotify.config.password
+        } catch (e) { }
       }
     }
-    logCanvas("Config:", this.config)
+    logSCL("Config:", this.helperConfig)
+    var callbacks = {
+      "init": () => { this.init = true }
+    }
+    this.CanvasLyrics = new CanvasLyrics(null, callbacks)
   },
 
   getDom: function() {
-    var canvas = document.createElement("div")
-    return canvas
+    var dom = document.createElement("div")
+    dom.style.display = "none"
+    return dom
+  },
+
+  getScripts: function() {
+    return [
+      "/modules/EXT-SpotifyCanvasLyrics/components/CanvasLyrics.js",
+      "https://code.iconify.design/1/1.0.6/iconify.min.js"
+    ]
+  },
+
+  getStyles: function () {
+    return [
+      "EXT-SpotifyCanvasLyrics.css",
+      "https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    ]
   },
 
   notificationReceived: function(noti, payload, sender) {
     switch(noti) {
       case "DOM_OBJECTS_CREATED":
-        this.sendSocketNotification("INIT", this.config)
+        this.sendSocketNotification("INIT", this.helperConfig)
+        this.CanvasLyrics.prepare()
         break
       case "GAv4_READY":
         if (sender.name == "MMM-GoogleAssistant") this.sendNotification("EXT_HELLO", this.name)
+        break
+      case "EXT_SPOTIFYCL-PLAYING":
+        if (!this.init || !payload.item) return
+        this.CanvasLyrics.updateDisplay(payload.item)
+        this.sendSocketNotification("SEARCH_CL", payload.item)
         break
     }
   },
@@ -66,6 +96,9 @@ Module.register("EXT-SpotifyCanvasLyrics", {
           type: "warning",
           message: payload
         })
+        break
+      case "CANVAS":
+        this.CanvasLyrics.displayCanvas(payload)
         break
     }
   },

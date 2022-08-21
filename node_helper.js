@@ -3,10 +3,12 @@
 var NodeHelper = require("node_helper")
 var logSCL = (...args) => { /* do nothing */ }
 var {PythonShell} = require('python-shell')
+var request = require("request")
 
 module.exports = NodeHelper.create({
   start: function () {
-    this.canvas = null
+    this.CLServer = null
+    this.SpotifyCurrentID = null
   },
 
   socketNotificationReceived: function (noti, payload) {
@@ -14,7 +16,10 @@ module.exports = NodeHelper.create({
       case "INIT":
         console.log("[SPOTIFYCL] EXT-SpotifyCanvasLyrics Version:", require('./package.json').version, "rev:", require('./package.json').rev)
         this.initialize(payload)
-      break
+        break
+      case "SEARCH_CL":
+        this.searchCL(payload)
+        break
     }
   },
 
@@ -25,6 +30,7 @@ module.exports = NodeHelper.create({
       this.sendSocketNotification("ERROR", "Email or Password not found!")
       return console.error("[SPOTIFYCL] email or password not found!")
     }
+
     let options = {
       mode: 'text',
       pythonOptions: ['-u'],
@@ -36,16 +42,44 @@ module.exports = NodeHelper.create({
       }
     }
 
-    this.canvas = new PythonShell('main.py', options)
+    this.CLServer = new PythonShell('main.py', options)
 
-    this.canvas.on('message', function (message) {
+    this.CLServer.on('message', function (message) {
       logSCL(message)
     })
-    this.canvas.on('stderr', function (stderr) {
+    this.CLServer.on('stderr', function (stderr) {
       console.log("[SPOTIFYCL]", stderr)
     })
-    this.canvas.on('stdout', function (stdout) {
+    this.CLServer.on('stdout', function (stdout) {
       console.log("[SPOTIFYCL]", stdout)
     })
+  },
+
+  searchCL: function (item) {
+    if (!item || !item.id || (this.SpotifyCurrentID == item.id)) return
+
+    this.SpotifyCurrentID = item.id
+    var canvas = () => {
+      request(
+        {
+          url: "http://127.0.0.1:2411/api/canvas/"+item.id,
+          method: "GET",
+          json: true
+        },
+        (error, response, body) => {
+          if (error) {
+            this.SpotifyCurrentID = null
+            return console.error("[SPOTIFYCL] API return", error.code)
+          }
+          if (body) {
+            if (body.success == "true") {
+              this.sendSocketNotification("CANVAS", body.canvas_url)
+              logSCL("SEND:", body.canvas_url)
+            }
+          }
+        }
+      )
+    }
+    canvas()
   }
 })

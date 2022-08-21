@@ -1,0 +1,52 @@
+#EXT_SPOTIFYCL {
+  width: 100%;
+  height: 100%;
+}
+
+#EXT_SPOTIFYCL_BACKGROUND {
+  background-size: cover;
+  background-position: center center;
+  filter: blur(15px) opacity(20%) grayscale(50%);
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+}
+
+#EXT_SPOTIFYCL_BOX1 {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+}
+
+#EXT_SPOTIFYCL_BOX2 {
+  flex: 1 1 auto;
+}
+
+#EXT_SPOTIFYCL_CONTROLBOX {
+  flex: 0 0 15%;
+}
+
+#EXT_SPOTIFYCL_BOX3 {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+#EXT_SPOTIFYCL_BOX4 {
+  flex: 1 1 auto;
+}
+
+#EXT_SPOTIFYCL_BOX5 {
+  flex: 0 0 20%;
+  height: 85vh;
+  box-sizing: border-box;
+  object-fit: fill;
+}
+
+#EXT_SPOTIFYCL_CANVAS {
+  height: 85vh;
+}
