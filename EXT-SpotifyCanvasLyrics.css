@@ -1,12 +1,16 @@
 #EXT_SPOTIFYCL {
   width: 100%;
   height: 100%;
+  text-shadow: black 5px 5px 5px;
+  font-size: 18px;
+  color: #EEE;
+  font-weight: normal;
 }
 
 #EXT_SPOTIFYCL_BACKGROUND {
   background-size: cover;
   background-position: center center;
-  filter: blur(15px) opacity(20%) grayscale(50%);
+  filter: blur(15px) opacity(30%) grayscale(50%);
   position:absolute;
   top:0;
   left:0;
@@ -15,32 +19,55 @@
   z-index:0;
 }
 
-#EXT_SPOTIFYCL_BOX1 {
+#EXT_SPOTIFYCL_CONTENT {
+  position: relative;
   display: flex;
   height: 100%;
   width: 100%;
   flex-direction: column;
 }
 
-#EXT_SPOTIFYCL_BOX2 {
+#EXT_SPOTIFYCL_DISPLAY {
+  display: flex;
   flex: 1 1 auto;
+  height: 100%;
+  width: 100%;
 }
 
 #EXT_SPOTIFYCL_CONTROLBOX {
   flex: 0 0 15%;
 }
 
-#EXT_SPOTIFYCL_BOX3 {
-  display: flex;
-  height: 100%;
-  width: 100%;
+#EXT_SPOTIFYCL_PLAYING {
+  flex: 0 0 30%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-#EXT_SPOTIFYCL_BOX4 {
+#EXT_SPOTIFYCL_LYRICS {
   flex: 1 1 auto;
+  text-align: center;
+  contain: strict;
+  color: gray;
+  margin-top: 20%;
 }
 
-#EXT_SPOTIFYCL_BOX5 {
+#EXT_SPOTIFYCL_LINE {
+  font-size: 1.5em;
+}
+
+#EXT_SPOTIFYCL_LINE.active {
+  font-size: 2em;
+  color: #eee;
+  font-weight: bold;
+}
+
+#EXT_SPOTIFYCL_LINE.hidden {
+  display:none
+}
+
+#EXT_SPOTIFYCL_VIDEO {
   flex: 0 0 20%;
   height: 85vh;
   box-sizing: border-box;
@@ -49,4 +76,63 @@
 
 #EXT_SPOTIFYCL_CANVAS {
   height: 85vh;
+  width: 27vw;
+  /*margin: 10px;*/
+}
+
+#EXT_SPOTIFYCL_PROGRESS_BAR {
+  position: relative;
+  width: 100%;
+  height: 5px;
+  border: 0px transparent;
+  margin-bottom: 5px;
+}
+
+progress[value]#EXT_SPOTIFYCL_PROGRESS_BAR::-webkit-progress-value {
+  background-color: #FFF;
+}
+
+progress[value]#EXT_SPOTIFYCL_PROGRESS_BAR::-webkit-progress-bar {
+  background-color: #666;
+}
+
+#EXT_SPOTIFYCL_TIME {
+  display: flex;
+  font-size: 1em;
+}
+
+#EXT_SPOTIFYCL_TIMECURRENT {
+  flex: 1;
+  margin-left: 10px;
+}
+
+#EXT_SPOTIFYCL_TIMEEND {
+  margin-right: 10px;
+}
+
+#EXT_SPOTIFYCL_COVER {
+  width: 98%;
+  margin: 10px;
+}
+
+#EXT_SPOTIFYCL_TITLE {
+  margin-left: 20px;
+  font-size: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#EXT_SPOTIFYCL_ARTIST {
+  margin-left: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#EXT_SPOTIFYCL_LOGO {
+  display: block;
+  width: 10vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }

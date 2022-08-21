@@ -69,17 +69,45 @@ module.exports = NodeHelper.create({
         (error, response, body) => {
           if (error) {
             this.SpotifyCurrentID = null
-            return console.error("[SPOTIFYCL] API return", error.code)
+            return console.error("[SPOTIFYCL] Canvas API return", error.code)
           }
           if (body) {
             if (body.success == "true") {
               this.sendSocketNotification("CANVAS", body.canvas_url)
               logSCL("SEND:", body.canvas_url)
+            } else {
+              this.sendSocketNotification("CANVAS", "none")
+              logSCL("SEND: no canvas")
+            }
+          }
+        }
+      )
+    }
+    var lyrics = () => {
+      request(
+        {
+          url: "http://127.0.0.1:2411/api/lyrics/"+item.id,
+          method: "GET",
+          json: true
+        },
+        (error, response, body) => {
+          if (error) {
+            this.SpotifyCurrentID = null
+            return console.error("[SPOTIFYCL] Lyrics API return", error.code)
+          }
+          if (body) {
+            if (body.success == "true") {
+              this.sendSocketNotification("LYRICS", body.lyrics)
+              logSCL("SEND: lyrics")
+            } else {
+              this.sendSocketNotification("LYRICS", "none")
+              logSCL("SEND: No lyrics")
             }
           }
         }
       )
     }
     canvas()
+    lyrics()
   }
 })

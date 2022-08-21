@@ -83,7 +83,7 @@ Module.register("EXT-SpotifyCanvasLyrics", {
         break
       case "EXT_SPOTIFYCL-PLAYING":
         if (!this.init || !payload.item) return
-        this.CanvasLyrics.updateDisplay(payload.item)
+        this.CanvasLyrics.updateCurrentSpotify(payload)
         this.sendSocketNotification("SEARCH_CL", payload.item)
         break
     }
@@ -99,6 +99,9 @@ Module.register("EXT-SpotifyCanvasLyrics", {
         break
       case "CANVAS":
         this.CanvasLyrics.displayCanvas(payload)
+        break
+      case "LYRICS":
+        this.CanvasLyrics.loadLyrics(payload)
         break
     }
   },
