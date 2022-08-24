@@ -130,9 +130,8 @@ class CanvasLyrics {
       }
       if (this.currentPlayback.progress_ms !== current.progress_ms) {
           this.updateProgress(current.progress_ms, current.item.duration_ms)
+          this.displayActiveLyrics(current.progress_ms)
       }
-
-      if (this.lyrics) this.displayActiveLyrics(current.progress_ms)
     }
     this.currentPlayback = current
   }
@@ -209,15 +208,13 @@ class CanvasLyrics {
   loadLyrics(lyrics) {
     if (!lyrics) return this.lyrics = null
     this.lyrics = []
-    var createLyrics = []
     lyrics.forEach(lyric => {
       let line = {
         time: lyric.time,
         words: lyric.words[0].string
       }
-      createLyrics.push(line)
+      this.lyrics.push(line)
     })
-    this.lyrics = createLyrics
     console.log("Lyrics Loaded")
     var lyricBox = document.getElementById("EXT_SPOTIFYCL_LYRICS")
     lyricBox.innerHTML= ""
@@ -238,18 +235,36 @@ class CanvasLyrics {
   }
 
   displayActiveLyrics(time) {
+    if (!this.lyrics) return
     this.lyrics.forEach((line, nb) => {
       var focus = document.getElementsByClassName(line.time)[0]
+
       if (line.time < time) {
+        // hide all lyric < current time
         focus.classList.add("hidden")
         focus.classList.remove("active")
       } else {
+        // show others lyric
         focus.classList.remove("hidden")
         focus.classList.remove("active")
       }
-      if ((this.lyrics[nb+1]) && (time >= line.time && time <= this.lyrics[nb+1].time)) {
+
+      // end of lyrics
+      if (!this.lyrics[nb+1]) return
+
+      if (time >= line.time && time <= this.lyrics[nb+1].time) {
+        // focus in active lyric
         focus.classList.remove("hidden")
         focus.classList.add("active")
+
+        // don't hide last 7 lyrics lines
+        for (let x = 1; x <8; x++) {
+          if (this.lyrics[nb-x]) {
+            var oldFocus = document.getElementsByClassName(this.lyrics[nb-x].time)[0]
+            oldFocus.classList.remove("hidden")
+            oldFocus.classList.remove("active")
+          }
+        }
       }
     })
   }

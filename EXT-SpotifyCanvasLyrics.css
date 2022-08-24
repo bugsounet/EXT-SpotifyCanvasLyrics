@@ -10,7 +10,7 @@
 #EXT_SPOTIFYCL_BACKGROUND {
   background-size: cover;
   background-position: center center;
-  filter: blur(15px) opacity(30%) grayscale(50%);
+  filter: blur(16px) opacity(50%) grayscale(33%);
   position:absolute;
   top:0;
   left:0;
@@ -50,7 +50,7 @@
   text-align: center;
   contain: strict;
   color: gray;
-  margin-top: 20%;
+  margin-top: 100px;
 }
 
 #EXT_SPOTIFYCL_LINE {
