@@ -59,16 +59,16 @@ Module.register("EXT-SpotifyCanvasLyrics", {
   getScripts: function() {
     return [
       "/modules/EXT-SpotifyCanvasLyrics/components/CanvasLyrics.js",
-      "https://code.iconify.design/1/1.0.6/iconify.min.js"
+      "https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"
     ]
   },
 
   getStyles: function () {
     return [
       "EXT-SpotifyCanvasLyrics.css",
-      "https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css",
+      //"https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css",
       "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
-      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      //"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     ]
   },
 

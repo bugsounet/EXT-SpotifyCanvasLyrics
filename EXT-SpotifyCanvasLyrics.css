@@ -136,3 +136,97 @@ progress[value]#EXT_SPOTIFYCL_PROGRESS_BAR::-webkit-progress-bar {
   margin-bottom: 20px;
   margin-top: 20px;
 }
+
+#EXT_SPOTIFYCL_CTRLS {
+  display: flex;
+}
+
+#EXT_SPOTIFYCL_CTRL1 {
+  flex: 1 1 35%;
+  margin-top: 10px;
+  padding: 16px;
+}
+
+#EXT_SPOTIFYCL_CTRL2 {
+  display: flex;
+}
+
+#EXT_SPOTIFYCL_CTRL3 {
+  flex: 0 0 35%;
+  margin-top: 10px;
+  padding: 16px;
+}
+
+#EXT_SPOTIFYCL_SHUFFLE,
+#EXT_SPOTIFYCL_PREVIOUS,
+#EXT_SPOTIFYCL_REPEAT,
+#EXT_SPOTIFYCL_NEXT {
+  margin: 10px;
+  padding: 16px;
+  display: flex;
+}
+
+#EXT_SPOTIFYCL_PLAY {
+  margin: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+
+  padding: 16px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  align-items: center;
+  background-color: #fff;
+  border: none;
+  border-radius: 32px;
+  display: flex;
+}
+
+#EXT_SPOTIFYCL_VOLUME {
+  display: flex;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  align-items: center;
+}
+
+#EXT_SPOTIFYCL_VOLUMEICON {
+  place-self: flex-end;
+  display: flex;
+}
+
+#EXT_SPOTIFYCL_VOLUMEVALUE {
+  margin: 5px;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 8px;
+  width: 30%;
+  border: 0px transparent;
+}
+
+progress[value]#EXT_SPOTIFYCL_VOLUMEVALUE::-webkit-progress-value {
+  background-color: #1db954;
+}
+
+progress[value]#EXT_SPOTIFYCL_VOLUMEVALUE::-webkit-progress-bar {
+  background-color: #666;
+}
+
+#EXT_SPOTIFYCL_SPEAKER {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  font-size: medium;
+}
+
+#EXT_SPOTIFYCL_SPEAKERICON {
+  place-self: flex-start;
+  display: flex;
+}
+
+#EXT_SPOTIFYCL_SPEAKERNAME {
+  margin: 5px;
+  margin-left: 10px;
+}
