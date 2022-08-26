@@ -2,14 +2,14 @@
 
 class CanvasLyrics {
   constructor (callbacks) {
-    this.debug = true
-    console.log("[CanvasLyrics] Class Loaded")
     this.init = callbacks.init
     this.sendNotification = callbacks.sendNotification
+    this.sendSocketNotification = callbacks.sendSocketNotification
     this.currentPlayback = null
     this.ads = false
     this.lyrics = []
     this.paths = {
+      spotify: "M8 171c0 92 76 168 168 168s168-76 168-168S268 4 176 4 8 79 8 171zm230 78c-39-24-89-30-147-17-14 2-16-18-4-20 64-15 118-8 162 19 11 7 0 24-11 18zm17-45c-45-28-114-36-167-20-17 5-23-21-7-25 61-18 136-9 188 23 14 9 0 31-14 22zM80 133c-17 6-28-23-9-30 59-18 159-15 221 22 17 9 1 37-17 27-54-32-144-35-195-19zm379 91c-17 0-33-6-47-20-1 0-1 1-1 1l-16 19c-1 1-1 2 0 3 18 16 40 24 64 24 34 0 55-19 55-47 0-24-15-37-50-46-29-7-34-12-34-22s10-16 23-16 25 5 39 15c0 0 1 1 2 1s1-1 1-1l14-20c1-1 1-1 0-2-16-13-35-20-56-20-31 0-53 19-53 46 0 29 20 38 52 46 28 6 32 12 32 22 0 11-10 17-25 17zm95-77v-13c0-1-1-2-2-2h-26c-1 0-2 1-2 2v147c0 1 1 2 2 2h26c1 0 2-1 2-2v-46c10 11 21 16 36 16 27 0 54-21 54-61s-27-60-54-60c-15 0-26 5-36 17zm30 78c-18 0-31-15-31-35s13-34 31-34 30 14 30 34-12 35-30 35zm68-34c0 34 27 60 62 60s62-27 62-61-26-60-61-60-63 27-63 61zm30-1c0-20 13-34 32-34s33 15 33 35-13 34-32 34-33-15-33-35zm140-58v-29c0-1 0-2-1-2h-26c-1 0-2 1-2 2v29h-13c-1 0-2 1-2 2v22c0 1 1 2 2 2h13v58c0 23 11 35 34 35 9 0 18-2 25-6 1 0 1-1 1-2v-21c0-1 0-2-1-2h-2c-5 3-11 4-16 4-8 0-12-4-12-12v-54h30c1 0 2-1 2-2v-22c0-1-1-2-2-2h-30zm129-3c0-11 4-15 13-15 5 0 10 0 15 2h1s1-1 1-2V93c0-1 0-2-1-2-5-2-12-3-22-3-24 0-36 14-36 39v5h-13c-1 0-2 1-2 2v22c0 1 1 2 2 2h13v89c0 1 1 2 2 2h26c1 0 1-1 1-2v-89h25l37 89c-4 9-8 11-14 11-5 0-10-1-15-4h-1l-1 1-9 19c0 1 0 3 1 3 9 5 17 7 27 7 19 0 30-9 39-33l45-116v-2c0-1-1-1-2-1h-27c-1 0-1 1-1 2l-28 78-30-78c0-1-1-2-2-2h-44v-3zm-83 3c-1 0-2 1-2 2v113c0 1 1 2 2 2h26c1 0 1-1 1-2V134c0-1 0-2-1-2h-26zm-6-33c0 10 9 19 19 19s18-9 18-19-8-18-18-18-19 8-19 18zm245 69c10 0 19-8 19-18s-9-18-19-18-18 8-18 18 8 18 18 18zm0-34c9 0 17 7 17 16s-8 16-17 16-16-7-16-16 7-16 16-16zm4 18c3-1 5-3 5-6 0-4-4-6-8-6h-8v19h4v-6h4l4 6h5zm-3-9c2 0 4 1 4 3s-2 3-4 3h-4v-6h4z",
       shuffle: "M13.151.922a.75.75 0 10-1.06 1.06L13.109 3H11.16a3.75 3.75 0 00-2.873 1.34l-6.173 7.356A2.25 2.25 0 01.39 12.5H0V14h.391a3.75 3.75 0 002.873-1.34l6.173-7.356a2.25 2.25 0 011.724-.804h1.947l-1.017 1.018a.75.75 0 001.06 1.06L15.98 3.75 13.15.922zM.391 3.5H0V2h.391c1.109 0 2.16.49 2.873 1.34L4.89 5.277l-.979 1.167-1.796-2.14A2.25 2.25 0 00.39 3.5z",
       shuffle2: "M7.5 10.723l.98-1.167.957 1.14a2.25 2.25 0 001.724.804h1.947l-1.017-1.018a.75.75 0 111.06-1.06l2.829 2.828-2.829 2.828a.75.75 0 11-1.06-1.06L13.109 13H11.16a3.75 3.75 0 01-2.873-1.34l-.787-.938z",
       previous: "M3.3 1a.7.7 0 01.7.7v5.15l9.95-5.744a.7.7 0 011.05.606v12.575a.7.7 0 01-1.05.607L4 9.149V14.3a.7.7 0 01-.7.7H1.7a.7.7 0 01-.7-.7V1.7a.7.7 0 01.7-.7h1.6z",
@@ -25,15 +25,19 @@ class CanvasLyrics {
       volumeMedium: "M9.741.85a.75.75 0 01.375.65v13a.75.75 0 01-1.125.65l-6.925-4a3.642 3.642 0 01-1.33-4.967 3.639 3.639 0 011.33-1.332l6.925-4a.75.75 0 01.75 0zm-6.924 5.3a2.139 2.139 0 000 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 6.087a4.502 4.502 0 000-8.474v1.65a2.999 2.999 0 010 5.175v1.649z",
       volumeHigh: "M9.741.85a.75.75 0 01.375.65v13a.75.75 0 01-1.125.65l-6.925-4a3.642 3.642 0 01-1.33-4.967 3.639 3.639 0 011.33-1.332l6.925-4a.75.75 0 01.75 0zm-6.924 5.3a2.139 2.139 0 000 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 4.29V5.56a2.75 2.75 0 010 4.88z",
       volumeHigh2: "M11.5 13.614a5.752 5.752 0 000-11.228v1.55a4.252 4.252 0 010 8.127v1.55z",
-      speaker: "M6 2.75C6 1.784 6.784 1 7.75 1h6.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0114.25 15h-6.5A1.75 1.75 0 016 13.25V2.75zm1.75-.25a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h6.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25h-6.5zm-6 0a.25.25 0 00-.25.25v6.5c0 .138.112.25.25.25H4V11H1.75A1.75 1.75 0 010 9.25v-6.5C0 1.784.784 1 1.75 1H4v1.5H1.75zM4 15H2v-1.5h2V15z",
-      speaker2: "M13 10a2 2 0 11-4 0 2 2 0 014 0zm-1-5a1 1 0 11-2 0 1 1 0 012 0z"
+      speaker: "M8 6.438c.552 0 1-.434 1-.969 0-.535-.448-.969-1-.969s-1 .434-1 .969c0 .535.448.969 1 .969zm0 6.312a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z",
+      speaker2: "M2.002 2.75c0-.966.784-1.75 1.75-1.75h8.5c.966 0 1.75.784 1.75 1.75v11.5a1.75 1.75 0 01-1.75 1.75h-8.5a1.75 1.75 0 01-1.75-1.75V2.75zm1.75-.25a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V2.75a.25.25 0 00-.25-.25h-8.5z"
     }
+    console.log("[CanvasLyrics] Class Loaded")
   }
 
   /** Create a default display **/
   prepare() {
     var spotifyCL = document.createElement("div")
     spotifyCL.id = "EXT_SPOTIFYCL"
+    spotifyCL.style.display= "none"
+    spotifyCL.className= "animate__animated"
+    spotifyCL.style.setProperty('--animate-duration', '1s')
     const CLBackground = document.createElement("div")
     CLBackground.id = "EXT_SPOTIFYCL_BACKGROUND"
 
@@ -47,9 +51,8 @@ class CanvasLyrics {
         const playing = document.createElement("div")
         playing.id = "EXT_SPOTIFYCL_PLAYING"
         display.appendChild(playing)
-          const logo = document.createElement("img")
+          const logo = document.createElement("div")
           logo.id = "EXT_SPOTIFYCL_LOGO"
-          logo.src = "/modules/EXT-SpotifyCanvasLyrics/components/SpotifyLogo.png"
           playing.appendChild(logo)
           const cover = document.createElement("img")
           cover.id = "EXT_SPOTIFYCL_COVER"
@@ -110,7 +113,7 @@ class CanvasLyrics {
               speakerControl.appendChild(speakerIcon)
               const speakerName= document.createElement("div")
               speakerName.id= "EXT_SPOTIFYCL_SPEAKERNAME"
-              speakerName.textContent= "@bugsounet Testing"
+              speakerName.textContent= "EXT-SpotifyCanvasLyrics by @bugsounet"
               speakerControl.appendChild(speakerName)
           controlDivs.appendChild(control1)
           const control2 = document.createElement("div")
@@ -173,6 +176,9 @@ class CanvasLyrics {
     document.body.appendChild(spotifyCL)
 
     /** Draw SVG icon **/
+    var drawSpotify = SVG().addTo('#EXT_SPOTIFYCL_LOGO').viewbox(0,0,1134,340).fill('#1db954').move(0, 10)
+    drawSpotify = drawSpotify.path(this.paths.spotify)
+
     var drawShuffle = SVG().addTo('#EXT_SPOTIFYCL_SHUFFLE').size("32px", "32px").viewbox(0,0,16,16).fill('white').move(0, 10).addClass('shuffleCL')
     var drawShufflePath = drawShuffle.path(this.paths.shuffle)
     drawShufflePath= drawShuffle.path(this.paths.shuffle2)
@@ -193,7 +199,7 @@ class CanvasLyrics {
     var drawVolumePath = drawVolume.path(this.paths.volumeHigh)
     drawVolumePath = drawVolume.path(this.paths.volumeHigh2)
 
-    var speaker = SVG().addTo('#EXT_SPOTIFYCL_SPEAKERICON').size("32px", "32px").viewbox(0,0,16,16).fill('white').move(0, 10)
+    var speaker = SVG().addTo('#EXT_SPOTIFYCL_SPEAKERICON').size("32px", "32px").viewbox(0,0,16,16).fill('#1db954').move(0, 10)
     var speakerPath = speaker.path(this.paths.speaker)
     speakerPath = speaker.path(this.paths.speaker2)
 
@@ -202,11 +208,11 @@ class CanvasLyrics {
 
   updateCurrentSpotify(current) {
     if (!current) return
+    if (current.item) this.sendSocketNotification("SEARCH_CL", current.item)
     if (!this.currentPlayback) {
       this.updateBackground(current.item)
       this.updateSongInfo(current.item)
       this.updatePlaying(current.is_playing)
-      //this.updatePlayback(current.is_playing)
       if (current.device) {
         this.updateVolume(current.device.volume_percent)
         this.updateDeviceName(current.device.name)
@@ -215,9 +221,6 @@ class CanvasLyrics {
       this.updateRepeat(current.repeat_state)
       if (current.is_playing && current.item) this.updateProgress(current.progress_ms, current.item.duration_ms)
     } else {
-      if (!this.connected && current.is_playing) {
-        //this.updatePlayback(true)
-      }
       /** for Ads **/
       if (current.currently_playing_type == "ad") {
         this.ads = true
@@ -297,19 +300,17 @@ class CanvasLyrics {
     const cover_img = document.getElementById("EXT_SPOTIFYCL_COVER")
 
     var img_url
-    //var display_name
+
     if (playbackItem.album){
       img_url = playbackItem.album.images[1].url
-      //display_name = playbackItem.album.name
     }
     else{
       img_url = playbackItem.images[1].url
-      //display_name = playbackItem.show.name
     }
     if (img_url !== cover_img.src) {
-      //cover_img.classList.remove('fade-in')
-      //let offset = cover_img.offsetWidth
-      //cover_img.classList.add('fade-in')
+      cover_img.classList.remove('fade-in')
+      let offset = cover_img.offsetWidth
+      cover_img.classList.add('fade-in')
       cover_img.src = img_url
     }
 
@@ -382,12 +383,18 @@ class CanvasLyrics {
   }
 
   updatePlaying(playing) {
+    const s = document.getElementById("EXT_SPOTIFYCL")
+    const video = document.getElementById("EXT_SPOTIFYCL_CANVAS")
     var playSVG = SVG.find('.playCL')
     playSVG.remove()
     if (playing) {
+      s.classList.remove("pausing")
+      video.play()
       var drawPlay = SVG().addTo('#EXT_SPOTIFYCL_PLAY').size("32px", "32px").viewbox(0,0,16,16).fill('black').move(0, 10).addClass('playCL')
       drawPlay = drawPlay.path(this.paths.pause)
     } else {
+      s.classList.add("pausing")
+      video.pause()
       var drawPlay = SVG().addTo('#EXT_SPOTIFYCL_PLAY').size("32px", "32px").viewbox(0,0,16,16).fill('black').move(0, 10).addClass('playCL')
       drawPlay = drawPlay.path(this.paths.play)
     }
@@ -477,6 +484,44 @@ class CanvasLyrics {
       let seek = ((percent * this.currentPlayback.item.duration_ms) / 100).toFixed(0)
       this.sendNotification("EXT_SPOTIFY-SEEK", seek)
     }
+  }
+
+  reset() {
+    // try to free memory...
+    this.lyrics = []
+    this.currentPlayback = null
+
+    // delete background
+    const back = document.getElementById("EXT_SPOTIFYCL_BACKGROUND")
+    back.style.backgroundImage = "none"
+    // delete cover
+    const cover_img = document.getElementById("EXT_SPOTIFYCL_COVER")
+    cover_img.removeAttribute('src')
+    // delete title
+    const title = document.getElementById("EXT_SPOTIFYCL_TITLE")
+    title.textContent = ""
+    // delete artist
+    const artist = document.getElementById("EXT_SPOTIFYCL_ARTIST")
+    artist.textContent = ""
+    // delete lyrics
+    var lyricBox = document.getElementById("EXT_SPOTIFYCL_LYRICS")
+    lyricBox.innerHTML= ""
+    this.sendSocketNotification("RESET_LYRICS")
+    // delete canvas
+    const video = document.getElementById("EXT_SPOTIFYCL_CANVAS")
+    video.removeAttribute('src')
+    video.load()
+    // reset time
+    const timeCurrent = document.getElementById("EXT_SPOTIFYCL_TIMECURRENT")
+    timeCurrent.textContent = "--:--"
+    const timeEnd = document.getElementById("EXT_SPOTIFYCL_TIMEEND")
+    timeEnd.textContent = "--:--"
+    // reset progress bars
+    const volume = document.getElementById("EXT_SPOTIFYCL_VOLUMEVALUE")
+    volume.value = 0
+    const bar = document.getElementById("EXT_SPOTIFYCL_PROGRESS_BAR")
+    bar.value = 0
+    bar.max = 100
   }
 
   /** Tools **/

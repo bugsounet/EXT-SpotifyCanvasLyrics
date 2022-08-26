@@ -20,6 +20,9 @@ module.exports = NodeHelper.create({
       case "SEARCH_CL":
         this.searchCL(payload)
         break
+      case "RESET_LYRICS":
+        this.SpotifyCurrentID = null
+        break
     }
   },
 

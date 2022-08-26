@@ -17,7 +17,8 @@ Module.register("EXT-SpotifyCanvasLyrics", {
     this.helperConfig = {
       debug: this.config.debug,
       email: null,
-      password: null
+      password: null,
+      deviceName: null
     }
     if (this.helperConfig.debug) logSCL = (...args) => { console.log("[SPOTIFYCL]", ...args) }
 
@@ -52,7 +53,8 @@ Module.register("EXT-SpotifyCanvasLyrics", {
     logSCL("Config:", this.helperConfig)
     var callbacks = {
       "init": () => { this.init = true },
-      "sendNotification": (noti, params) => { this.sendNotification(noti,params) }
+      "sendNotification": (noti, params) => { this.sendNotification(noti,params) },
+      "sendSocketNotification": (noti, params) => { this.sendSocketNotification(noti,params) }
     }
     this.CanvasLyrics = new CanvasLyrics(callbacks)
   },
@@ -72,10 +74,7 @@ Module.register("EXT-SpotifyCanvasLyrics", {
 
   getStyles: function () {
     return [
-      "EXT-SpotifyCanvasLyrics.css",
-      //"https://cdn.materialdesignicons.com/5.2.45/css/materialdesignicons.min.css",
-      "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css",
-      //"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      "EXT-SpotifyCanvasLyrics.css"
     ]
   },
 
@@ -91,7 +90,9 @@ Module.register("EXT-SpotifyCanvasLyrics", {
       case "EXT_SPOTIFYCL-PLAYING":
         if (!this.init || !payload.item) return
         this.CanvasLyrics.updateCurrentSpotify(payload)
-        this.sendSocketNotification("SEARCH_CL", payload.item)
+        break
+      case "EXT_SPOTIFY-PLAYER_DISCONNECTED":
+        this.CanvasLyrics.reset()
         break
     }
   },

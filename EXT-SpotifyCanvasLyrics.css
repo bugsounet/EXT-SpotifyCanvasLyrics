@@ -7,6 +7,10 @@
   font-weight: normal;
 }
 
+#EXT_SPOTIFYCL.pausing {
+  filter:brightness(50%) grayscale(75%);
+}
+
 #EXT_SPOTIFYCL_BACKGROUND {
   background-size: cover;
   background-position: center center;
@@ -115,6 +119,20 @@ progress[value]#EXT_SPOTIFYCL_PROGRESS_BAR::-webkit-progress-bar {
   margin: 10px;
 }
 
+#EXT_SPOTIFYCL_COVER.fade-in {
+  animation: fadeInOpacity 1s 1;
+  animation-timing-function: linear;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 #EXT_SPOTIFYCL_TITLE {
   margin-left: 20px;
   font-size: 40px;
@@ -129,12 +147,13 @@ progress[value]#EXT_SPOTIFYCL_PROGRESS_BAR::-webkit-progress-bar {
 }
 
 #EXT_SPOTIFYCL_LOGO {
-  display: block;
-  width: 10vw;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px;
-  margin-top: 20px;
+    display: block;
+    width: 15vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    display: flex;
 }
 
 #EXT_SPOTIFYCL_CTRLS {
