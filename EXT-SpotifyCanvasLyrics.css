@@ -1,0 +1,251 @@
+#EXT_SPOTIFYCL {
+  width: 100%;
+  height: 100%;
+  text-shadow: black 5px 5px 5px;
+  font-size: 18px;
+  color: #EEE;
+  font-weight: normal;
+}
+
+#EXT_SPOTIFYCL.pausing {
+  filter:brightness(50%) grayscale(75%);
+}
+
+#EXT_SPOTIFYCL_BACKGROUND {
+  background-size: cover;
+  background-position: center center;
+  filter: blur(16px) opacity(50%) grayscale(33%);
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+}
+
+#EXT_SPOTIFYCL_CONTENT {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+}
+
+#EXT_SPOTIFYCL_DISPLAY {
+  display: flex;
+  flex: 1 1 auto;
+  height: 100%;
+  width: 100%;
+}
+
+#EXT_SPOTIFYCL_CONTROLBOX {
+  flex: 0 0 15%;
+}
+
+#EXT_SPOTIFYCL_PLAYING {
+  flex: 0 0 30%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#EXT_SPOTIFYCL_LYRICS {
+  flex: 1 1 auto;
+  text-align: center;
+  contain: strict;
+  color: gray;
+  margin-top: 100px;
+}
+
+#EXT_SPOTIFYCL_LINE {
+  font-size: 1.5em;
+}
+
+#EXT_SPOTIFYCL_LINE.active {
+  font-size: 2em;
+  color: #eee;
+  font-weight: bold;
+}
+
+#EXT_SPOTIFYCL_LINE.hidden {
+  display:none
+}
+
+#EXT_SPOTIFYCL_VIDEO {
+  flex: 0 0 20%;
+  height: 85vh;
+  box-sizing: border-box;
+  object-fit: fill;
+}
+
+#EXT_SPOTIFYCL_CANVAS {
+  height: 85vh;
+  width: 27vw;
+  /*margin: 10px;*/
+}
+
+#EXT_SPOTIFYCL_PROGRESS_BAR {
+  position: relative;
+  width: 100%;
+  height: 5px;
+  border: 0px transparent;
+  margin-bottom: 5px;
+}
+
+progress[value]#EXT_SPOTIFYCL_PROGRESS_BAR::-webkit-progress-value {
+  background-color: #FFF;
+}
+
+progress[value]#EXT_SPOTIFYCL_PROGRESS_BAR::-webkit-progress-bar {
+  background-color: #666;
+}
+
+#EXT_SPOTIFYCL_TIME {
+  display: flex;
+  font-size: 1em;
+}
+
+#EXT_SPOTIFYCL_TIMECURRENT {
+  flex: 1;
+  margin-left: 10px;
+}
+
+#EXT_SPOTIFYCL_TIMEEND {
+  margin-right: 10px;
+}
+
+#EXT_SPOTIFYCL_COVER {
+  width: 98%;
+  margin: 10px;
+}
+
+#EXT_SPOTIFYCL_COVER.fade-in {
+  animation: fadeInOpacity 1s 1;
+  animation-timing-function: linear;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#EXT_SPOTIFYCL_TITLE {
+  margin-left: 20px;
+  font-size: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#EXT_SPOTIFYCL_ARTIST {
+  margin-left: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#EXT_SPOTIFYCL_LOGO {
+    display: block;
+    width: 15vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    display: flex;
+}
+
+#EXT_SPOTIFYCL_CTRLS {
+  display: flex;
+}
+
+#EXT_SPOTIFYCL_CTRL1 {
+  flex: 1 1 35%;
+  margin-top: 10px;
+  padding: 16px;
+}
+
+#EXT_SPOTIFYCL_CTRL2 {
+  display: flex;
+}
+
+#EXT_SPOTIFYCL_CTRL3 {
+  flex: 0 0 35%;
+  margin-top: 10px;
+  padding: 16px;
+}
+
+#EXT_SPOTIFYCL_SHUFFLE,
+#EXT_SPOTIFYCL_PREVIOUS,
+#EXT_SPOTIFYCL_REPEAT,
+#EXT_SPOTIFYCL_NEXT {
+  margin: 10px;
+  padding: 16px;
+  display: flex;
+}
+
+#EXT_SPOTIFYCL_PLAY {
+  margin: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+
+  padding: 16px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  align-items: center;
+  background-color: #fff;
+  border: none;
+  border-radius: 32px;
+  display: flex;
+}
+
+#EXT_SPOTIFYCL_VOLUME {
+  display: flex;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  align-items: center;
+}
+
+#EXT_SPOTIFYCL_VOLUMEICON {
+  place-self: flex-end;
+  display: flex;
+}
+
+#EXT_SPOTIFYCL_VOLUMEVALUE {
+  margin: 5px;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 8px;
+  width: 30%;
+  border: 0px transparent;
+}
+
+progress[value]#EXT_SPOTIFYCL_VOLUMEVALUE::-webkit-progress-value {
+  background-color: #1db954;
+}
+
+progress[value]#EXT_SPOTIFYCL_VOLUMEVALUE::-webkit-progress-bar {
+  background-color: #666;
+}
+
+#EXT_SPOTIFYCL_SPEAKER {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  font-size: medium;
+}
+
+#EXT_SPOTIFYCL_SPEAKERICON {
+  place-self: flex-start;
+  display: flex;
+}
+
+#EXT_SPOTIFYCL_SPEAKERNAME {
+  margin: 5px;
+  margin-left: 10px;
+}
