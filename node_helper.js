@@ -72,14 +72,9 @@ module.exports = NodeHelper.create({
             return console.error("[SPOTIFYCL] Canvas API return", error.code)
           }
           if (body) {
-            if (body.success == "true") {
-              this.sendSocketNotification("CANVAS", body.canvas_url)
-              logSCL("SEND:", body.canvas_url)
-            } else {
-              this.sendSocketNotification("CANVAS", "none")
-              logSCL("SEND: no canvas")
-            }
-          }
+            this.sendSocketNotification("CANVAS", body)
+            logSCL("Canvas:", body)
+          } else console.error("[SPOTIFYCL] Canvas API return no body ?")
         }
       )
     }
@@ -96,14 +91,10 @@ module.exports = NodeHelper.create({
             return console.error("[SPOTIFYCL] Lyrics API return", error.code)
           }
           if (body) {
-            if (body.success == "true") {
-              this.sendSocketNotification("LYRICS", body.lyrics)
-              logSCL("SEND: lyrics")
-            } else {
-              this.sendSocketNotification("LYRICS", "none")
-              logSCL("SEND: No lyrics")
-            }
+            this.sendSocketNotification("LYRICS", body)
+            logSCL("Lyrics:", body)
           }
+          else console.error("[SPOTIFYCL] Lyrics API return no body ?")
         }
       )
     }

@@ -33,6 +33,9 @@ Module.register("EXT-SpotifyCanvasLyrics", {
         try {
           this.helperConfig.password = Librespot.config.password
         } catch (e) { }
+        try {
+          this.helperConfig.deviceName = Librespot.config.deviceName ? Librespot.config.deviceName : "MagicMirror"
+        } catch (e) { }
       }
       else if (Raspotify) {
         try {
@@ -41,13 +44,17 @@ Module.register("EXT-SpotifyCanvasLyrics", {
         try {
           this.helperConfig.password = Raspotify.config.password
         } catch (e) { }
+        try {
+          this.helperConfig.deviceName = Raspotify.config.deviceName ? Raspotify.config.deviceName : "MagicMirror"
+        } catch (e) { }
       }
     }
     logSCL("Config:", this.helperConfig)
     var callbacks = {
-      "init": () => { this.init = true }
+      "init": () => { this.init = true },
+      "sendNotification": (noti, params) => { this.sendNotification(noti,params) }
     }
-    this.CanvasLyrics = new CanvasLyrics(null, callbacks)
+    this.CanvasLyrics = new CanvasLyrics(callbacks)
   },
 
   getDom: function() {
