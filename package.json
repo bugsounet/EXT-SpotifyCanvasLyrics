@@ -27,6 +27,7 @@
   },
   "homepage": "https://wiki.bugsounet.fr/en/EXT-SpotifyCanvasLyrics",
   "dependencies": {
-    "python-shell": "^3.0.1"
+    "python-shell": "^3.0.1",
+    "request": "^2.88.2"
   }
 }
