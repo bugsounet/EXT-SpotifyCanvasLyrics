@@ -2,6 +2,7 @@
 
 class CanvasLyrics {
   constructor (callbacks) {
+    this.vertical = false
     this.init = callbacks.init
     this.sendNotification = callbacks.sendNotification
     this.sendSocketNotification = callbacks.sendSocketNotification
@@ -33,23 +34,42 @@ class CanvasLyrics {
 
   /** Create a default display **/
   prepare() {
+    let w = window.screen.width
+    let h = window.screen.height
+    // console.log(w,h)
+    // horitonzal: 1920 1080
+    // vertical: 1080 1920
+    if (h>w) this.vertical = true
     var spotifyCL = document.createElement("div")
     spotifyCL.id = "EXT_SPOTIFYCL"
     spotifyCL.style.display= "none"
     spotifyCL.className= "animate__animated"
     spotifyCL.style.setProperty('--animate-duration', '1s')
+
     const CLBackground = document.createElement("div")
     CLBackground.id = "EXT_SPOTIFYCL_BACKGROUND"
-
     spotifyCL.appendChild(CLBackground)
+
+    if (this.vertical) {
+      CLBackground.classList.add("hidden")
+      const canvas = document.createElement("video")
+      canvas.id = "EXT_SPOTIFYCL_CANVAS"
+      canvas.classList.add("vertical")
+      canvas.muted = true
+      canvas.autoplay = true
+      canvas.loop = true
+      spotifyCL.appendChild(canvas)
+    }
 
     const content = document.createElement("div")
     content.id = "EXT_SPOTIFYCL_CONTENT"
       const display = document.createElement("div")
       display.id = "EXT_SPOTIFYCL_DISPLAY"
+      if (this.vertical) display.classList.add("vertical")
       content.appendChild(display)
         const playing = document.createElement("div")
         playing.id = "EXT_SPOTIFYCL_PLAYING"
+        if (this.vertical) playing.classList.add("vertical")
         display.appendChild(playing)
           const logo = document.createElement("div")
           logo.id = "EXT_SPOTIFYCL_LOGO"
@@ -65,16 +85,19 @@ class CanvasLyrics {
           playing.appendChild(artist)
         const lyrics = document.createElement("div")
         lyrics.id = "EXT_SPOTIFYCL_LYRICS"
+        if (this.vertical) lyrics.classList.add("vertical")
         display.appendChild(lyrics)
-        const video = document.createElement("div")
-        video.id = "EXT_SPOTIFYCL_VIDEO"
-        display.appendChild(video)
-          const canvas = document.createElement("video")
-          canvas.id = "EXT_SPOTIFYCL_CANVAS"
-          canvas.muted = true
-          canvas.autoplay = true
-          canvas.loop = true
-          video.appendChild(canvas)
+        if (!this.vertical) {
+          const video = document.createElement("div")
+          video.id = "EXT_SPOTIFYCL_VIDEO"
+          display.appendChild(video)
+            const canvas = document.createElement("video")
+            canvas.id = "EXT_SPOTIFYCL_CANVAS"
+            canvas.muted = true
+            canvas.autoplay = true
+            canvas.loop = true
+            video.appendChild(canvas)
+        }
       const CLControlBox = document.createElement("div")
       CLControlBox.id = "EXT_SPOTIFYCL_CONTROLBOX"
         const progress = document.createElement("div")
@@ -159,6 +182,7 @@ class CanvasLyrics {
               volumeControl.appendChild(volumeIcon)
               const volumeValue = document.createElement("progress")
               volumeValue.id= "EXT_SPOTIFYCL_VOLUMEVALUE"
+              if (this.vertical) volumeValue.classList.add("vertical")
               volumeValue.value = 0
               volumeValue.max = 100
               volumeValue.addEventListener('click', e => {
@@ -278,8 +302,25 @@ class CanvasLyrics {
 
   displayCanvas(result) {
     const canvas = document.getElementById("EXT_SPOTIFYCL_CANVAS")
-    if (result.success == "false" || (result.canvas_url.endsWith("jpg"))) canvas.src= "/modules/EXT-SpotifyCanvasLyrics/components/spotify.mp4"
-    else  canvas.src= result.canvas_url
+    const back = document.getElementById("EXT_SPOTIFYCL_BACKGROUND")
+    if (result.success == "false" || (result.canvas_url.endsWith("jpg"))) {
+      if (this.vertical) {
+        canvas.classList.add("hidden")
+        //canvas.pause()
+        canvas.removeAttribute('src')
+        canvas.load()
+        back.classList.remove("hidden")
+      } else {
+        canvas.src= "/modules/EXT-SpotifyCanvasLyrics/components/spotify.mp4"
+      }
+    } else {
+      if (this.vertical) {
+        back.classList.add("hidden")
+        canvas.classList.remove("hidden")
+      }
+      canvas.src= result.canvas_url
+      canvas.play()
+    }
   }
 
   updateProgress(progressMS, durationMS) {
@@ -301,18 +342,9 @@ class CanvasLyrics {
 
     var img_url
 
-    if (playbackItem.album){
-      img_url = playbackItem.album.images[1].url
-    }
-    else{
-      img_url = playbackItem.images[1].url
-    }
-    if (img_url !== cover_img.src) {
-      cover_img.classList.remove('fade-in')
-      let offset = cover_img.offsetWidth
-      cover_img.classList.add('fade-in')
-      cover_img.src = img_url
-    }
+    if (playbackItem.album) img_url = playbackItem.album.images[1].url
+    else img_url = playbackItem.images[1].url
+    if (img_url !== cover_img.src) cover_img.src = img_url
 
     const title = document.getElementById("EXT_SPOTIFYCL_TITLE")
     title.textContent = playbackItem.name
@@ -422,8 +454,8 @@ class CanvasLyrics {
         console.log("[CanvasLyrics] Lyrics Loaded")
       }
       if (error) {
-        this.sendNotification("EXT-Alert", {
-          message: "Lyrics not sync with title",
+        this.sendNotification("EXT_ALERT", {
+          message: "Lyrics are not sync with this title",
           type: "warning"
         })
         console.log("[CanvasLyrics] Lyrics not sync with title")
@@ -467,8 +499,8 @@ class CanvasLyrics {
         focus.classList.remove("hidden")
         focus.classList.add("active")
 
-        // don't hide last 7 lyrics lines
-        for (let x = 1; x <8; x++) {
+        // don't hide last 8 lyrics lines
+        for (let x = 1; x <9; x++) {
           if (this.lyrics[nb-x]) {
             var oldFocus = document.getElementsByClassName(this.lyrics[nb-x].time)[0]
             oldFocus.classList.remove("hidden")
@@ -484,44 +516,6 @@ class CanvasLyrics {
       let seek = ((percent * this.currentPlayback.item.duration_ms) / 100).toFixed(0)
       this.sendNotification("EXT_SPOTIFY-SEEK", seek)
     }
-  }
-
-  reset() {
-    // try to free memory...
-    this.lyrics = []
-    this.currentPlayback = null
-
-    // delete background
-    const back = document.getElementById("EXT_SPOTIFYCL_BACKGROUND")
-    back.style.backgroundImage = "none"
-    // delete cover
-    const cover_img = document.getElementById("EXT_SPOTIFYCL_COVER")
-    cover_img.removeAttribute('src')
-    // delete title
-    const title = document.getElementById("EXT_SPOTIFYCL_TITLE")
-    title.textContent = ""
-    // delete artist
-    const artist = document.getElementById("EXT_SPOTIFYCL_ARTIST")
-    artist.textContent = ""
-    // delete lyrics
-    var lyricBox = document.getElementById("EXT_SPOTIFYCL_LYRICS")
-    lyricBox.innerHTML= ""
-    this.sendSocketNotification("RESET_LYRICS")
-    // delete canvas
-    const video = document.getElementById("EXT_SPOTIFYCL_CANVAS")
-    video.removeAttribute('src')
-    video.load()
-    // reset time
-    const timeCurrent = document.getElementById("EXT_SPOTIFYCL_TIMECURRENT")
-    timeCurrent.textContent = "--:--"
-    const timeEnd = document.getElementById("EXT_SPOTIFYCL_TIMEEND")
-    timeEnd.textContent = "--:--"
-    // reset progress bars
-    const volume = document.getElementById("EXT_SPOTIFYCL_VOLUMEVALUE")
-    volume.value = 0
-    const bar = document.getElementById("EXT_SPOTIFYCL_PROGRESS_BAR")
-    bar.value = 0
-    bar.max = 100
   }
 
   /** Tools **/
