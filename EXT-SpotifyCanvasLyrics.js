@@ -91,9 +91,6 @@ Module.register("EXT-SpotifyCanvasLyrics", {
         if (!this.init || !payload.item) return
         this.CanvasLyrics.updateCurrentSpotify(payload)
         break
-      case "EXT_SPOTIFY-PLAYER_DISCONNECTED":
-        this.CanvasLyrics.reset()
-        break
     }
   },
 

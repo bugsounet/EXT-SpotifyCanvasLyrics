@@ -23,6 +23,10 @@
   z-index:0;
 }
 
+#EXT_SPOTIFYCL_BACKGROUND.hidden {
+  display: none;
+}
+
 #EXT_SPOTIFYCL_CONTENT {
   position: relative;
   display: flex;
@@ -38,8 +42,13 @@
   width: 100%;
 }
 
+#EXT_SPOTIFYCL_DISPLAY.vertical {
+  flex-direction: column;
+}
+
 #EXT_SPOTIFYCL_CONTROLBOX {
-  flex: 0 0 15%;
+  /* flex: 0 0 15%; */
+  flex: 1 1 auto;
 }
 
 #EXT_SPOTIFYCL_PLAYING {
@@ -49,12 +58,21 @@
   white-space: nowrap;
 }
 
+#EXT_SPOTIFYCL_PLAYING.vertical {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #EXT_SPOTIFYCL_LYRICS {
   flex: 1 1 auto;
   text-align: center;
   contain: strict;
   color: gray;
   margin-top: 100px;
+}
+
+#EXT_SPOTIFYCL_LYRICS.vertical {
+  margin-top: 50px;
 }
 
 #EXT_SPOTIFYCL_LINE {
@@ -82,6 +100,20 @@
   height: 85vh;
   width: 27vw;
   /*margin: 10px;*/
+}
+
+#EXT_SPOTIFYCL_CANVAS.vertical {
+  filter: blur(3px) opacity(50%) grayscale(33%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 0;
+}
+
+#EXT_SPOTIFYCL_CANVAS.hidden {
+  display: none;
 }
 
 #EXT_SPOTIFYCL_PROGRESS_BAR {
@@ -160,20 +192,16 @@ progress[value]#EXT_SPOTIFYCL_PROGRESS_BAR::-webkit-progress-bar {
   display: flex;
 }
 
-#EXT_SPOTIFYCL_CTRL1 {
-  flex: 1 1 35%;
+#EXT_SPOTIFYCL_CTRL1,
+#EXT_SPOTIFYCL_CTRL3 {
+  flex: 1 1 auto;
   margin-top: 10px;
   padding: 16px;
+  width: 300px;
 }
 
 #EXT_SPOTIFYCL_CTRL2 {
   display: flex;
-}
-
-#EXT_SPOTIFYCL_CTRL3 {
-  flex: 0 0 35%;
-  margin-top: 10px;
-  padding: 16px;
 }
 
 #EXT_SPOTIFYCL_SHUFFLE,
@@ -222,6 +250,10 @@ progress[value]#EXT_SPOTIFYCL_PROGRESS_BAR::-webkit-progress-bar {
   height: 8px;
   width: 30%;
   border: 0px transparent;
+}
+
+#EXT_SPOTIFYCL_VOLUMEVALUE.vertical {
+  width: 150px;
 }
 
 progress[value]#EXT_SPOTIFYCL_VOLUMEVALUE::-webkit-progress-value {
