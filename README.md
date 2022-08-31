@@ -14,8 +14,9 @@
  # Installation:
  
  ```sh
+ cd ~/MagicMirror/modules/
  git clone https://github.com/bugsounet/EXT-SpotifyCanvasLyrics
- cd ~/MagicMirror/modules/EXT-SpotifyCanvasLyrics
+ cd EXT-SpotifyCanvasLyrics
  npm install
  ```
  
