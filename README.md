@@ -5,7 +5,6 @@
  * This plugin is under coding
  * This is the last develop version
  * This version is NOT final version
- * This version Works ONLY in landscape mode
 
  # plugins Requirements
   * EXT-Spotify
@@ -16,7 +15,7 @@
  
  ```sh
  git clone https://github.com/bugsounet/EXT-SpotifyCanvasLyrics
- cd EXT-SpotifyCanvasLyrics
+ cd ~/MagicMirror/modules/EXT-SpotifyCanvasLyrics
  npm install
  ```
  
