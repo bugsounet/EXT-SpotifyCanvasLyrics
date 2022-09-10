@@ -499,8 +499,8 @@ class CanvasLyrics {
         focus.classList.remove("hidden")
         focus.classList.add("active")
 
-        // don't hide last 8 lyrics lines
-        for (let x = 1; x <9; x++) {
+        // don't hide last 10 lyrics lines
+        for (let x = 1; x <11; x++) {
           if (this.lyrics[nb-x]) {
             var oldFocus = document.getElementsByClassName(this.lyrics[nb-x].time)[0]
             oldFocus.classList.remove("hidden")
