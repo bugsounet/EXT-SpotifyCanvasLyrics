@@ -5,6 +5,9 @@
   font-size: 18px;
   color: #EEE;
   font-weight: normal;
+  top: 0;
+  left: 0;
+  position: fixed;
 }
 
 #EXT_SPOTIFYCL.pausing {
@@ -47,20 +50,22 @@
 }
 
 #EXT_SPOTIFYCL_CONTROLBOX {
-  /* flex: 0 0 15%; */
   flex: 1 1 auto;
+  margin-bottom: 20px;
 }
 
 #EXT_SPOTIFYCL_PLAYING {
-  flex: 0 0 30%;
+  flex: 0 0 25%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin: 5px;
 }
 
 #EXT_SPOTIFYCL_PLAYING.vertical {
   margin-left: auto;
   margin-right: auto;
+  flex: 0 0 auto;
 }
 
 #EXT_SPOTIFYCL_LYRICS {
@@ -68,7 +73,7 @@
   text-align: center;
   contain: strict;
   color: gray;
-  margin-top: 100px;
+  margin: 15px;
 }
 
 #EXT_SPOTIFYCL_LYRICS.vertical {
@@ -94,12 +99,12 @@
   height: 85vh;
   box-sizing: border-box;
   object-fit: fill;
+  margin: 5px;
 }
 
 #EXT_SPOTIFYCL_CANVAS {
   height: 85vh;
   width: 27vw;
-  /*margin: 10px;*/
 }
 
 #EXT_SPOTIFYCL_CANVAS.vertical {
@@ -148,7 +153,8 @@ progress[value]#EXT_SPOTIFYCL_PROGRESS_BAR::-webkit-progress-bar {
 
 #EXT_SPOTIFYCL_COVER {
   width: 98%;
-  margin: 10px;
+  margin: 5px;
+  display: flex;
 }
 
 #EXT_SPOTIFYCL_COVER.fade-in {
@@ -179,13 +185,11 @@ progress[value]#EXT_SPOTIFYCL_PROGRESS_BAR::-webkit-progress-bar {
 }
 
 #EXT_SPOTIFYCL_LOGO {
-    display: block;
     width: 15vw;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
     margin-top: 20px;
-    display: flex;
 }
 
 #EXT_SPOTIFYCL_CTRLS {
