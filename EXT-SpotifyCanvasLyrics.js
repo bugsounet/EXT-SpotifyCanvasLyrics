@@ -56,7 +56,7 @@ Module.register("EXT-SpotifyCanvasLyrics", {
       "sendNotification": (noti, params) => { this.sendNotification(noti,params) },
       "sendSocketNotification": (noti, params) => { this.sendSocketNotification(noti,params) }
     }
-    this.CanvasLyrics = new CanvasLyrics(callbacks)
+    this.CanvasLyrics = new CanvasLyrics(callbacks,this.helperConfig)
   },
 
   getDom: function() {
@@ -68,7 +68,8 @@ Module.register("EXT-SpotifyCanvasLyrics", {
   getScripts: function() {
     return [
       "/modules/EXT-SpotifyCanvasLyrics/components/CanvasLyrics.js",
-      "https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"
+      "https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js",
+      "/modules/EXT-SpotifyCanvasLyrics/components/JSPanel.js"
     ]
   },
 
@@ -91,6 +92,10 @@ Module.register("EXT-SpotifyCanvasLyrics", {
         if (!this.init || !payload.item) return
         this.CanvasLyrics.updateCurrentSpotify(payload)
         break
+      case "EXT_SPOTIFYCL-DEVICELIST":
+        if (!this.init || !payload.devices) return
+        this.CanvasLyrics.updateDevicesList(payload.devices)
+        break
     }
   },
 
@@ -111,4 +116,37 @@ Module.register("EXT-SpotifyCanvasLyrics", {
     }
   },
 
+  /****************************/
+  /*** TelegramBot Commands ***/
+  /****************************/
+  getCommands: function(commander) {
+    commander.add({
+      command: "lyrics",
+      description: "Spotify Canvas Lyrics",
+      callback: "tbSCL"
+    })
+  },
+
+  tbSCL: function(command, handler) {
+    if (handler.args) {
+      var args = handler.args.toLowerCase().split(" ")
+      var params = handler.args.split(" ")
+      if (args[0] == "on") {
+        handler.reply("TEXT", "Turn on Lyrics")
+        this.sendNotification("EXT_SPOTIFY-SCL", true)
+      }
+      else if (args[0] == "off") {
+        handler.reply("TEXT", "turn off Lyrics")
+        this.sendNotification("EXT_SPOTIFY-SCL", false)
+      }
+      else {
+		handler.reply("TEXT", "I don't know... Try /lyrics",{parse_mode:'Markdown'})
+      }
+    } else {
+      handler.reply("TEXT", 'Need Help for /lyrics commands ?\n\n\
+  *on*: Turn on Canvas Lyrics mode\n\
+  *off*: Turn off Canvas Lyrics mode\
+  ',{parse_mode:'Markdown'})
+    }
+  }
 })
