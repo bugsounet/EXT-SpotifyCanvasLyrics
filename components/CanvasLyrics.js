@@ -240,18 +240,18 @@ class CanvasLyrics {
       right: 0,
       left: 0,
       items: [
-	    {
-		  id: "0",
-		  title: "Select a device:"
-	    },
-	    { 
-		  id: "1",
-		  separator: true
-		},
-	    {
-		  id: "2",
-		  title: "No device"
-	    }
+        {
+          id: "0",
+          title: "Select a device:"
+        },
+        {
+          id: "1",
+          separator: true
+        },
+        {
+          id: "2",
+          title: "No device"
+        }
       ]
     })
 
@@ -262,37 +262,37 @@ class CanvasLyrics {
 	const buttonSpeaker = document.querySelector("#EXT_SPOTIFYCL_SPEAKERICON")
 	let createList = [
       {
-		id: "0",
-		title: "Select a device:"
+        id: "0",
+        title: "Select a device:"
       },
       { 
-		id: "1",
-		separator: true
-	  },
+        id: "1",
+        separator: true
+      },
       {
-		id: "2",
-		title: "No device"
+        id: "2",
+        title: "No device"
       },
     ]
 
 	let item = {}
 	this.devicesPanel.removeItems(this.devicesPanel.getAllIDS())
 	createList.forEach((item,id) => {
-	  if (id == "2") {
-		  if (!devices.length) this.devicesPanel.addItem(item)
-	  } else {
-	    this.devicesPanel.addItem(item)
-	  }
+      if (id == "2") {
+        if (!devices.length) this.devicesPanel.addItem(item)
+      } else {
+        this.devicesPanel.addItem(item)
+      }
 	})
 	devices.forEach((device,id) => {
       item = {
-		id: id+2,
-	    title: device.name,
-	    fontawesome_icon: this.getFAIcon(device.type),
-	    onclick: () => this.sendNotification("EXT_SPOTIFY-TRANSFER", device.name)
-	  }
+        id: id+2,
+        title: device.name,
+        fontawesome_icon: this.getFAIcon(device.type),
+        onclick: () => this.sendNotification("EXT_SPOTIFY-TRANSFER", device.name)
+      }
       if (!device.is_active) this.devicesPanel.addItem(item)
-	})
+    })
   } 
 
   updateCurrentSpotify(current) {
