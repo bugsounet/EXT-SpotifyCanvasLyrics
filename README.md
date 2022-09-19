@@ -24,8 +24,9 @@
     },
  ```
  
- This plugins have no position and no configuration !
- It will scan require plugins for auto-configure and will use a popup in fullscreen for displaying
+ This plugins have no position and no configuration !<br>
+ It will be auto-configured with all requirements<br>
+ This Plugins will create a server for fetch Lyrics and Canvas
  
  # Update
  
