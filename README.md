@@ -1,36 +1,22 @@
 # EXT-SpotifyCanvasLyrics
 
-**Warn:**
+ This plugins will create a server for fetch Lyrics and Canvas
 
  # plugins Requirements
   * EXT-Spotify
   * EXT-Librespot or EXT-Raspotify
   * EXT-Alert
 
- # Installation:
+ # Screenshot
  
- ```sh
- cd ~/MagicMirror/modules/
- git clone https://github.com/bugsounet/EXT-SpotifyCanvasLyrics
- cd EXT-SpotifyCanvasLyrics
- npm install
- ```
+Landscape mode:
  
- # Configuration
- 
-```js
-    {
-        module: 'EXT-SpotifyCanvasLyrics'
-    },
- ```
- 
- This plugins have no position and no configuration !<br>
- It will be auto-configured with all requirements<br>
- This Plugins will create a server for fetch Lyrics and Canvas
- 
- # Update
- 
- ```sh
- cd ~/MagicMirror/modules/EXT-SpotifyCanvasLyrics
- npm run update
- ```
+![](https://wiki.bugsounet.fr/1661380128355-a614b0f1-142b-4d9e-b105-eae823e958ae-image.png)
+
+---
+Portrait mode:
+
+![](https://wiki.bugsounet.fr/1661976384550-ede2f383-90f2-422d-b6fb-389a3972203c-image.png)
+
+ # Installation, update & Guides
+Read the docs in [wiki](https://wiki.bugsounet.fr/EXT-SpotifyCanvasLyrics)<br>
