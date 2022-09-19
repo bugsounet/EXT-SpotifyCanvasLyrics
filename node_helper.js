@@ -17,12 +17,6 @@ module.exports = NodeHelper.create({
         console.log("[SPOTIFYCL] EXT-SpotifyCanvasLyrics Version:", require('./package.json').version, "rev:", require('./package.json').rev)
         this.initialize(payload)
         break
-      case "SEARCH_CL":
-        this.searchCL(payload)
-        break
-      case "RESET_LYRICS":
-        this.SpotifyCurrentID = null
-        break
     }
   },
 
@@ -30,7 +24,7 @@ module.exports = NodeHelper.create({
     this.config = config
     if (this.config.debug) logSCL = (...args) => { console.log("[SPOTIFYCL]", ...args) }
     if (!this.config.email || !this.config.password) {
-      this.sendSocketNotification("ERROR", "Email or Password not found!")
+      this.sendSocketNotification("ERROR", "[SPOTIFYCL] Email or Password not found!")
       return console.error("[SPOTIFYCL] email or password not found!")
     }
 
@@ -56,52 +50,5 @@ module.exports = NodeHelper.create({
     this.CLServer.on('stdout', function (stdout) {
       console.log("[SPOTIFYCL]", stdout)
     })
-  },
-
-  searchCL: function (item) {
-    if (!item || !item.id || (this.SpotifyCurrentID == item.id)) return
-
-    this.SpotifyCurrentID = item.id
-    var canvas = () => {
-      request(
-        {
-          url: "http://127.0.0.1:2411/api/canvas/"+item.id,
-          method: "GET",
-          json: true
-        },
-        (error, response, body) => {
-          if (error) {
-            this.SpotifyCurrentID = null
-            return console.error("[SPOTIFYCL] Canvas API return", error.code)
-          }
-          if (body) {
-            this.sendSocketNotification("CANVAS", body)
-            logSCL("Canvas:", body)
-          } else console.error("[SPOTIFYCL] Canvas API return no body ?")
-        }
-      )
-    }
-    var lyrics = () => {
-      request(
-        {
-          url: "http://127.0.0.1:2411/api/lyrics/"+item.id,
-          method: "GET",
-          json: true
-        },
-        (error, response, body) => {
-          if (error) {
-            this.SpotifyCurrentID = null
-            return console.error("[SPOTIFYCL] Lyrics API return", error.code)
-          }
-          if (body) {
-            this.sendSocketNotification("LYRICS", body)
-            logSCL("Lyrics:", body)
-          }
-          else console.error("[SPOTIFYCL] Lyrics API return no body ?")
-        }
-      )
-    }
-    canvas()
-    lyrics()
   }
 })
