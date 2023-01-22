@@ -1,5 +1,5 @@
 /**
- ** Module : EXT-SpotifyCanvasLyrics
+ ** Module : EXT-SpotifyCanvasLyrics v2
  ** @bugsounet
  ** ©08-2022
  ** support: https://forum.bugsounet.fr
@@ -59,6 +59,12 @@ Module.register("EXT-SpotifyCanvasLyrics", {
       case "GAv4_READY":
         if (sender.name == "MMM-GoogleAssistant") this.sendNotification("EXT_HELLO", this.name)
         break
+      case "EXT_SCL-GET_LYRICS":
+        this.sendSocketNotification("GET-LYRICS", payload)
+        break
+      case "EXT_SCL-GET_CANVAS":
+        this.sendSocketNotification("GET-CANVAS", payload)
+        break
     }
   },
 
@@ -69,6 +75,14 @@ Module.register("EXT-SpotifyCanvasLyrics", {
           type: "warning",
           message: payload
         })
+        break
+      case "SEND-LYRICS":
+        console.log("Send Lyrics", payload)
+        this.sendNotification("EXT_SCL-SEND_LYRICS", payload)
+        break
+      case "SEND-CANVAS":
+        console.log("Send Canvas", payload)
+        this.sendNotification("EXT_SCL-SEND_CANVAS", payload)
         break
     }
   }
