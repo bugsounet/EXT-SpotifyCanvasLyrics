@@ -1,7 +1,7 @@
 /**
  ** Module : EXT-SpotifyCanvasLyrics v2
  ** @bugsounet
- ** ©08-2022
+ ** ©01-2023
  ** support: https://forum.bugsounet.fr
  **/
 
