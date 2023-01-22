@@ -15,6 +15,7 @@ module.exports = NodeHelper.create({
     this.EntityCanvazResponse = CanvasProto.lookupType('com.spotify.canvazcache.EntityCanvazResponse')
     this.updateToken = null
     this.init = false
+    this.renewTokenTime = 1000 // ~ 16 min
   },
 
   socketNotificationReceived: async function (noti, payload) {
@@ -159,6 +160,6 @@ module.exports = NodeHelper.create({
     this.updateToken = setInterval(() => {
       logSCL("Update Tokens...")
       this.createTokens()
-    }, 1000 * 60 * 30)
+    }, 1000 * this.renewTokenTime)
   }
 })
