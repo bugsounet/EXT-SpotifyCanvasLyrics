@@ -63,17 +63,15 @@ else
   fi
 fi
 
+echo
 dependencies=(python3 python-is-python3 python3-pip)
 Installer_info "Checking all dependencies..."
 Installer_update_dependencies
 Installer_success "All Dependencies needed are installed !"
 
-echo
-Installer_info "Installing spotify-canvas-lyrics API"
+# Delete v1.x version
 rm -rf server
-git clone https://github.com/bugsounet/spotify-canvas-lyrics server
 
 echo
 Installer_info "Installing requirements.txt..."
-cd server
-pip install --no-cache-dir --upgrade -r requirements.txt
+pip install --no-cache-dir --upgrade -r installer/requirements.txt
