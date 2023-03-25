@@ -1,7 +1,7 @@
 /**
  ** Module : EXT-SpotifyCanvasLyrics v2
  ** @bugsounet
- ** ©01-2023
+ ** ©03-2023
  ** support: https://forum.bugsounet.fr
  **/
 
@@ -42,6 +42,7 @@ Module.register("EXT-SpotifyCanvasLyrics", {
         } catch (e) { }
       }
     }
+    this.ready= false
     logSCL("Config:", this.helperConfig)
   },
 
@@ -52,13 +53,12 @@ Module.register("EXT-SpotifyCanvasLyrics", {
   },
 
   notificationReceived: function(noti, payload, sender) {
+    if (noti =="GW_READY") {
+      if (sender.name == "Gateway") this.sendSocketNotification("INIT", this.helperConfig)
+    }
+    if (!this.ready) return
+
     switch(noti) {
-      case "DOM_OBJECTS_CREATED":
-        this.sendSocketNotification("INIT", this.helperConfig)
-        break
-      case "GAv4_READY":
-        if (sender.name == "MMM-GoogleAssistant") this.sendNotification("EXT_HELLO", this.name)
-        break
       case "EXT_SCL-GET_LYRICS":
         this.sendSocketNotification("GET-LYRICS", payload)
         break
@@ -70,6 +70,10 @@ Module.register("EXT-SpotifyCanvasLyrics", {
 
   socketNotificationReceived: function(noti, payload) {
     switch(noti) {
+      case "INITIALIZED":
+        this.ready= true
+        this.sendNotification("EXT_HELLO", this.name)
+        break
       case "ERROR":
         this.sendNotification("EXT_ALERT", {
           type: "warning",
