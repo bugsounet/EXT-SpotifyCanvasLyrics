@@ -46,6 +46,7 @@ module.exports = NodeHelper.create({
     }
     await this.createTokens()
     this.init = true
+    this.sendSocketNotification("INITIALIZED")
   },
 
   getLyricsToken: function () {
