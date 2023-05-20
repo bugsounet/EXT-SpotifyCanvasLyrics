@@ -74,4 +74,6 @@ rm -rf server
 
 echo
 Installer_info "Installing requirements.txt..."
-pip install --no-cache-dir --upgrade -r installer/requirements.txt --break-system-packages
+pip install --no-cache-dir --upgrade -r installer/requirements.txt
+# Or this can help
+# pip install --no-cache-dir --upgrade -r installer/requirements.txt --break-system-packages
