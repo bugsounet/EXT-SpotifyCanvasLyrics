@@ -22,8 +22,7 @@ Module.register("EXT-SpotifyCanvasLyrics", {
 
     /** Search player config **/
     let Librespot = config.modules.find(m => m.module == "EXT-Librespot")
-    let Raspotify = config.modules.find(m => m.module == "EXT-Raspotify")
-    if ((Librespot && !Librespot.disabled) || (Raspotify && !Raspotify.disabled)) {
+    if (Librespot && !Librespot.disabled) {
       logSCL("Player Found!")
       if (Librespot) {
         try {
@@ -31,14 +30,6 @@ Module.register("EXT-SpotifyCanvasLyrics", {
         } catch (e) { }
         try {
           this.helperConfig.password = Librespot.config.password
-        } catch (e) { }
-      }
-      else if (Raspotify) {
-        try {
-          this.helperConfig.email = Raspotify.config.email
-        } catch (e) { }
-        try {
-          this.helperConfig.password = Raspotify.config.password
         } catch (e) { }
       }
     }
