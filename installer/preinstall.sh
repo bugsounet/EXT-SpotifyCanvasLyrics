@@ -3,6 +3,15 @@
 # | npm preinstall |
 # +----------------+
 
+dependencies=
+
+while getopts ":d:" option; do
+  case $option in
+    d) # -d option for install dependencies
+       dependencies=($OPTARG);;
+  esac
+done
+
 # get the installer directory
 Installer_get_current_dir () {
   SOURCE="${BASH_SOURCE[0]}"
@@ -64,16 +73,21 @@ else
 fi
 
 echo
-dependencies=(python3 python-is-python3 python3-pip)
-Installer_info "Checking all dependencies..."
-Installer_update_dependencies
-Installer_success "All Dependencies needed are installed !"
+#check dependencies
+if [[ -n $dependencies ]]; then
+  Installer_info "Checking all dependencies..."
+  Installer_update_dependencies || exit 255
+  Installer_success "All Dependencies needed are installed !"
+fi
 
 # Delete v1.x version
 rm -rf server
 
 echo
 Installer_info "Installing requirements.txt..."
-pip install --no-cache-dir --upgrade -r installer/requirements.txt
-# Or this can help
-# pip install --no-cache-dir --upgrade -r installer/requirements.txt --break-system-packages
+pip install --no-cache-dir --upgrade -r installer/requirements.txt || {
+  echo
+  Installer_info "... ok let's retry with --break-system-packages"
+  pip install --no-cache-dir --upgrade -r installer/requirements.txt --break-system-packages
+} || exit 255
+Installer_success "Done"
