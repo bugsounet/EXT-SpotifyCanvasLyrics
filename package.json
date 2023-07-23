@@ -33,6 +33,6 @@
     "glob": "^10.3.3",
     "node-fetch": "^3.3.0",
     "protobufjs": "^7.1.2",
-    "python-shell": "^3.0.1"
+    "python-shell": "^5.0.0"
   }
 }
