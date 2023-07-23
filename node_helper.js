@@ -56,14 +56,12 @@ module.exports = NodeHelper.create({
       args: [ "-u", this.config.email, "-p", this.config.password ]
     }
     return new Promise( resolve => {
-      PythonShell.run('getToken.py', options, (err, result) => {
-        if (err) resolve({ "Error": err })
-        else {
+      PythonShell.run('getToken.py', options)
+        .then(result => {
           if (!result[0].Error) logSCL("[Lyrics] Token Created")
-          else console.error("[SPOTIFYCL] [Lyrics] [Token] Error!")
+          else console.error("[SPOTIFYCL] [Lyrics] [Token] Error!", result[0].Error)
           resolve(result[0])
-        }
-      })
+        })
     })
   },
 
