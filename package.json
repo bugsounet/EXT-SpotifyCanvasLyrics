@@ -1,12 +1,12 @@
 {
   "name": "EXT-SpotifyCanvasLyrics",
-  "version": "2.1.1",
-  "rev": "230520",
+  "version": "2.1.2",
+  "rev": "230723",
   "description": "An EXT-Spotify plugin for fetch spotify canvas/lyrics from spotify trackId.",
   "main": "EXT-SpotifyCanvasLyrics.js",
   "scripts": {
-    "preinstall": "installer/preinstall.sh",
-    "postinstall": "installer/postinstall.sh",
+    "preinstall": "installer/preinstall.sh -d 'python3 python-is-python3 python3-pip'",
+    "postinstall": "installer/postinstall.sh -m -b",
     "update": "installer/update.sh",
     "reset": "git reset --hard",
     "clean": "rm -rf node_modules package-lock.json"
@@ -29,9 +29,8 @@
   },
   "homepage": "https://wiki.bugsounet.fr/en/EXT-SpotifyCanvasLyrics",
   "dependencies": {
-    "check-node-version": "^4.2.1",
-    "glob": "^9.3.2",
-    "minify": "^9.2.0",
+    "esbuild": "^0.18.16",
+    "glob": "^10.3.3",
     "node-fetch": "^3.3.0",
     "protobufjs": "^7.1.2",
     "python-shell": "^3.0.1"
