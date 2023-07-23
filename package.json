@@ -30,7 +30,7 @@
   "homepage": "https://wiki.bugsounet.fr/en/EXT-SpotifyCanvasLyrics",
   "dependencies": {
     "check-node-version": "^4.2.1",
-    "glob": "^9.3.2",
+    "glob": "^10.3.3",
     "minify": "^9.2.0",
     "node-fetch": "^3.3.0",
     "protobufjs": "^7.1.2",
