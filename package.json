@@ -31,7 +31,7 @@
   "dependencies": {
     "check-node-version": "^4.2.1",
     "glob": "^9.3.2",
-    "minify": "^9.2.0",
+    "minify": "^10.3.0",
     "node-fetch": "^3.3.0",
     "protobufjs": "^7.1.2",
     "python-shell": "^3.0.1"
