@@ -31,7 +31,7 @@
   "dependencies": {
     "esbuild": "^0.18.16",
     "glob": "^10.3.3",
-    "node-fetch": "^3.3.0",
+    "node-fetch": "^3.3.2",
     "protobufjs": "^7.1.2",
     "python-shell": "^5.0.0"
   }
