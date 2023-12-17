@@ -44,8 +44,8 @@ Module.register("EXT-SpotifyCanvasLyrics", {
   },
 
   notificationReceived: function(noti, payload, sender) {
-    if (noti =="GW_READY") {
-      if (sender.name == "Gateway") this.sendSocketNotification("INIT", this.helperConfig)
+    if (noti =="GA_READY") {
+      if (sender.name == "MMM-GoogleAssistant") this.sendSocketNotification("INIT", this.helperConfig)
     }
     if (!this.ready) return
 
