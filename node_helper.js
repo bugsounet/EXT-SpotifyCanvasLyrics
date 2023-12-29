@@ -4,7 +4,6 @@ var NodeHelper = require("node_helper")
 var logSCL = (...args) => { /* do nothing */ }
 const protoLoader = require('./components/proto-loader')
 var {PythonShell} = require('python-shell')
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args))
 
 module.exports = NodeHelper.create({
   start: function () {
