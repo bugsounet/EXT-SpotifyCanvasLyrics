@@ -1,7 +1,7 @@
 {
   "name": "EXT-SpotifyCanvasLyrics",
   "version": "2.2.0",
-  "rev": "240000",
+  "rev": "240103",
   "description": "An EXT-Spotify plugin for fetch spotify canvas/lyrics from spotify trackId.",
   "main": "EXT-SpotifyCanvasLyrics.js",
   "scripts": {
