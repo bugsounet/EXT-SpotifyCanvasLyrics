@@ -44,8 +44,8 @@ Module.register("EXT-SpotifyCanvasLyrics", {
   },
 
   notificationReceived: function(noti, payload, sender) {
-    if (noti =="GW_READY") {
-      if (sender.name == "Gateway") this.sendSocketNotification("INIT", this.helperConfig)
+    if (noti =="GA_READY") {
+      if (sender.name == "MMM-GoogleAssistant") this.sendSocketNotification("INIT", this.helperConfig)
     }
     if (!this.ready) return
 
@@ -64,6 +64,7 @@ Module.register("EXT-SpotifyCanvasLyrics", {
       case "INITIALIZED":
         this.ready= true
         this.sendNotification("EXT_HELLO", this.name)
+        this.sendNotification("EXT_SCL-READY")
         break
       case "ERROR":
         this.sendNotification("EXT_ALERT", {
@@ -72,11 +73,11 @@ Module.register("EXT-SpotifyCanvasLyrics", {
         })
         break
       case "SEND-LYRICS":
-        console.log("Send Lyrics", payload)
+        logSCL("Send Lyrics", payload)
         this.sendNotification("EXT_SCL-SEND_LYRICS", payload)
         break
       case "SEND-CANVAS":
-        console.log("Send Canvas", payload)
+        logSCL("Send Canvas", payload)
         this.sendNotification("EXT_SCL-SEND_CANVAS", payload)
         break
     }
