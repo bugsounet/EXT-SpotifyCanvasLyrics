@@ -4,7 +4,7 @@
 
  # plugins Requirements
   * EXT-Spotify
-  * EXT-Librespot or EXT-Raspotify
+  * EXT-Librespot
   * EXT-Alert
 
  # Screenshot
