@@ -1,7 +1,7 @@
 {
   "name": "EXT-SpotifyCanvasLyrics",
-  "version": "2.2.0",
-  "rev": "240103",
+  "version": "2.2.1",
+  "rev": "240221",
   "description": "An EXT-Spotify plugin for fetch spotify canvas/lyrics from spotify trackId.",
   "main": "EXT-SpotifyCanvasLyrics.js",
   "scripts": {
@@ -29,9 +29,9 @@
   },
   "homepage": "https://wiki.bugsounet.fr/en/EXT-SpotifyCanvasLyrics",
   "dependencies": {
-    "esbuild": "^0.19.11",
+    "esbuild": "^0.20.1",
     "glob": "^10.3.10",
-    "protobufjs": "^7.2.5",
+    "protobufjs": "^7.2.6",
     "python-shell": "^5.0.0"
   }
 }
