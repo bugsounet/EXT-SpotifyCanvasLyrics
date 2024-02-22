@@ -16,7 +16,7 @@ Landscape mode:
 ---
 Portrait mode:
 
-![](screenshot/portrait.png)
+![](/screenshot/portrait.png)
 
  # Installation, update & Guides
 Read the docs in [wiki](https://wiki.bugsounet.fr/EXT-SpotifyCanvasLyrics)<br>
