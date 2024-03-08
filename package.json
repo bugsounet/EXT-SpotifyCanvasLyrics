@@ -1,7 +1,7 @@
 {
   "name": "EXT-SpotifyCanvasLyrics",
-  "version": "2.2.1",
-  "rev": "240221",
+  "version": "2.3.0",
+  "rev": "240308",
   "description": "An EXT-Spotify plugin for fetch spotify canvas/lyrics from spotify trackId.",
   "main": "EXT-SpotifyCanvasLyrics.js",
   "scripts": {
@@ -9,9 +9,14 @@
     "postinstall": "installer/postinstall.sh -m -b",
     "update": "installer/update.sh",
     "reset": "git reset --hard",
-    "clean": "rm -rf node_modules package-lock.json"
+    "clean": "rm -rf node_modules package-lock.json",
+    "lint": "eslint *.js installer/*.js components/*.js --config eslint.config.js",
+    "lint:fix": "eslint *.js installer/*.js components/*.js --config eslint.config.js --fix",
+    "test": "npm run lint",
+    "test:minify": "cd installer && node minify.js"
   },
   "keywords": [
+    "MMM-GoogleAssistant",
     "magic mirror",
     "module",
     "spotify",
@@ -33,5 +38,11 @@
     "glob": "^10.3.10",
     "protobufjs": "^7.2.6",
     "python-shell": "^5.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^8.57.0",
+    "@stylistic/eslint-plugin": "^1.6.3",
+    "eslint": "^8.57.0",
+    "eslint-plugin-import": "^2.29.1"
   }
 }
