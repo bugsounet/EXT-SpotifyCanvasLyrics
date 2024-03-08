@@ -1,85 +1,84 @@
 /**
- ** Module : EXT-SpotifyCanvasLyrics v2
+ ** Module : EXT-SpotifyCanvasLyrics
  ** @bugsounet
- ** ©03-2023
  ** support: https://forum.bugsounet.fr
  **/
 
-logSCL = (...args) => { /* do nothing */ }
+logSCL = (...args) => { /* do nothing */ };
 
 Module.register("EXT-SpotifyCanvasLyrics", {
   defaults: {
     debug: false
   },
 
-  start: function () {
+  start () {
     this.helperConfig = {
       debug: this.config.debug,
       email: null,
       password: null
-    }
-    if (this.helperConfig.debug) logSCL = (...args) => { console.log("[SPOTIFYCL]", ...args) }
+    };
+    if (this.helperConfig.debug) logSCL = (...args) => { console.log("[SPOTIFYCL]", ...args); };
 
     /** Search player config **/
-    let Librespot = config.modules.find(m => m.module == "EXT-Librespot")
+    let Librespot = config.modules.find((m) => m.module === "EXT-Librespot");
     if (Librespot && !Librespot.disabled) {
-      logSCL("Player Found!")
+      logSCL("Player Found!");
       if (Librespot) {
         try {
-          this.helperConfig.email = Librespot.config.email
+          this.helperConfig.email = Librespot.config.email;
         } catch (e) { }
         try {
-          this.helperConfig.password = Librespot.config.password
+          this.helperConfig.password = Librespot.config.password;
         } catch (e) { }
       }
     }
-    this.ready= false
-    logSCL("Config:", this.helperConfig)
+    this.ready= false;
+    logSCL("Config:", this.helperConfig);
   },
 
-  getDom: function() {
-    var dom = document.createElement("div")
-    dom.style.display = "none"
-    return dom
+  getDom () {
+    var dom = document.createElement("div");
+    dom.style.display = "none";
+    return dom;
   },
 
-  notificationReceived: function(noti, payload, sender) {
-    if (noti =="GA_READY") {
-      if (sender.name == "MMM-GoogleAssistant") this.sendSocketNotification("INIT", this.helperConfig)
+  notificationReceived (noti, payload, sender) {
+    if (noti === "GA_READY") {
+      if (sender.name === "MMM-GoogleAssistant") this.sendSocketNotification("INIT", this.helperConfig);
     }
-    if (!this.ready) return
+    if (!this.ready) return;
 
     switch(noti) {
       case "EXT_SCL-GET_LYRICS":
-        this.sendSocketNotification("GET-LYRICS", payload)
-        break
+        this.sendSocketNotification("GET-LYRICS", payload);
+        break;
       case "EXT_SCL-GET_CANVAS":
-        this.sendSocketNotification("GET-CANVAS", payload)
-        break
+        this.sendSocketNotification("GET-CANVAS", payload);
+        break;
     }
   },
 
-  socketNotificationReceived: function(noti, payload) {
+  socketNotificationReceived (noti, payload) {
     switch(noti) {
       case "INITIALIZED":
-        this.ready= true
-        this.sendNotification("EXT_HELLO", this.name)
-        this.sendNotification("EXT_SCL-READY")
-        break
+        this.ready= true;
+        this.sendNotification("EXT_HELLO", this.name);
+        this.sendNotification("EXT_SCL-READY");
+        break;
       case "ERROR":
         this.sendNotification("EXT_ALERT", {
           type: "warning",
           message: payload
-        })
-        break
+        });
+        break;
       case "SEND-LYRICS":
-        logSCL("Send Lyrics", payload)
-        this.sendNotification("EXT_SCL-SEND_LYRICS", payload)
-        break
+        logSCL("Send Lyrics", payload);
+        this.sendNotification("EXT_SCL-SEND_LYRICS", payload);
+        break;
       case "SEND-CANVAS":
-        logSCL("Send Canvas", payload)
-        this.sendNotification("EXT_SCL-SEND_CANVAS", payload)
-        break
+        logSCL("Send Canvas", payload);
+        this.sendNotification("EXT_SCL-SEND_CANVAS", payload);
+        break;
     }
   }
-})
+});
