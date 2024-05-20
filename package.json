@@ -34,7 +34,7 @@
   },
   "homepage": "https://wiki.bugsounet.fr/en/EXT-SpotifyCanvasLyrics",
   "dependencies": {
-    "esbuild": "^0.21.2",
+    "esbuild": "^0.21.3",
     "glob": "^10.3.15",
     "protobufjs": "^7.3.0",
     "python-shell": "^5.0.0"
