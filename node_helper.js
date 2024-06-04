@@ -97,8 +97,7 @@ module.exports = NodeHelper.create({
         });
       if (response.ok) {
         const result = await response.json();
-        logSCL("[Lyrics]", result);
-        logSCL("[Lyrics]", result.lyrics)
+        logSCL("[Lyrics]", result.lyrics);
         resolve({ success: true, lyrics: result.lyrics });
       } else {
         console.error("[SPOTIFYCL] [Lyrics] Error:", response.status, response.statusText);
