@@ -87,16 +87,19 @@ module.exports = NodeHelper.create({
     }
     let lyrics = [];
     return new Promise(async (resolve, reject) => {
-      const response = await fetch(`https://spclient.wg.spotify.com/lyrics/v1/track/${id}`,
+      //const response = await fetch(`https://spclient.wg.spotify.com/lyrics/v1/track/${id}`,
+      const response = await fetch(`https://spclient.wg.spotify.com/color-lyrics/v2/track/${id}?format=json&vocalRemoval=false`,
         {
           headers: {
-            Authorization: `Bearer ${this.tokenLyrics.Token}`
+            Authorization: `Bearer ${this.tokenLyrics.Token}`,
+            "app-platform": "WebPlayer"
           }
         });
       if (response.ok) {
         const result = await response.json();
         logSCL("[Lyrics]", result);
-        resolve({ success: true, lyrics: result });
+        logSCL("[Lyrics]", result.lyrics)
+        resolve({ success: true, lyrics: result.lyrics });
       } else {
         console.error("[SPOTIFYCL] [Lyrics] Error:", response.status, response.statusText);
         resolve({ success: false, message: response.statusText });
